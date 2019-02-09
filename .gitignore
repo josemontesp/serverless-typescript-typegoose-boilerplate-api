@@ -7,3 +7,4 @@ typings
 coverage
 dist
 .nyc_output
+.DS_Store

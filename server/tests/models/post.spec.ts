@@ -1,39 +1,37 @@
-process.env.NODE_ENV = "testing";
+process.env.NODE_ENV = 'testing';
 
-import { Author, IAuthor, Post } from "../../models/models";
-import * as chai from "chai";
+import * as chai from 'chai';
+import { Author, AuthorModel, Post } from '../../models/models';
 
 const expect = chai.expect;
 
-describe("Posts", () => {
+describe('Posts', () => {
+  it('should insert new post', done => {
+    const author = new AuthorModel();
+    author.name = 'John';
+    author.description = 'He is writer';
 
-  it("should insert new post", (done: Function) => {
+    author.save(async (err: Error, res: Author) => {
+      expect(res).to.be.an('object');
+      expect(res.name).to.be.equal('John');
 
-    const author = new Author();
-    author.name = "John";
-    author.description = "He is writer";
+      await Post.create(
+        {
+          author: res._id,
+          description: 'Lorem ipsum...',
+          title: 'Tile 1',
+        },
+        {
+          author: res._id,
+          description: 'Lorem ipsum...',
+          title: 'Tile 2',
+        },
+      );
 
-    author.save(async (err: Error, _res: IAuthor) => {
-
-      expect(_res).to.be.an("object");
-      expect(_res.name).to.be.equal("John");
-
-      await Post.create({
-        author: _res._id,
-        title: "Tile 1",
-        description: "Lorem ipsum..."
-      }, {
-        author: _res._id,
-        title: "Tile 2",
-        description: "Lorem ipsum..."
-      });
-
-      const posts = await Post.findAllByAuthor(_res._id.toString());
+      const posts = await Post.findAllByAuthor(res._id.toString());
 
       expect(posts).to.be.length(2);
       done();
     });
-
   });
-
 });
