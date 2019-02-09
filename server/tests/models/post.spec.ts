@@ -1,12 +1,13 @@
-process.env.NODE_ENV = 'testing';
-
 import * as chai from 'chai';
+
 import { Author, AuthorModel, Post } from '../../models/models';
+
+process.env.NODE_ENV = 'testing';
 
 const expect = chai.expect;
 
 describe('Posts', () => {
-  it('should insert new post', done => {
+  it('should insert new post', (done) => {
     const author = new AuthorModel();
     author.name = 'John';
     author.description = 'He is writer';

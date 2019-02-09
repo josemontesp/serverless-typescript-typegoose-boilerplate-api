@@ -13,9 +13,14 @@ export class BaseModel extends Typegoose {
   // tslint:disable-next-line:variable-name
   @prop() public _id?: Types.ObjectId;
 
+  protected timestamps = true;
+
   public getModelForClass<T>(t: T, options?: GetModelForClassOptions) {
-    return super.getModelForClass(t, {
+    return super.getModelForClass<T>(t, {
       existingMongoose: mongoose,
+      schemaOptions: {
+        timestamps: this.timestamps,
+      },
       ...options,
     });
   }

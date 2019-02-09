@@ -35,9 +35,9 @@ export class Author extends BaseModel {
       },
     ).exec();
   }
+
   @prop() public age?: number;
   @prop() public description?: string;
-  @prop({ default: Date.now }) public create?: Date;
   @prop({ required: true }) public name: string;
 }
 
