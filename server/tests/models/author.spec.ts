@@ -16,7 +16,6 @@ describe('Models Author', () => {
     author.description = 'He is writer';
 
     const res = await author.save();
-    console.log(res);
     authorObject = res;
 
     expect(res).to.be.an('object');

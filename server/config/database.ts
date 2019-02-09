@@ -15,7 +15,10 @@ if (process.env.NODE_ENV === 'testing') {
     },
   );
 } else {
-  mongoose.connect('mongodb://127.0.0.1:27021/typescript_mongoose');
+  mongoose.connect(
+    'mongodb://josemontesp:testpassword1@ds030500.mlab.com:30500/test-ts-node-api',
+    { useNewUrlParser: true },
+  );
 }
 
 export { mongoose };

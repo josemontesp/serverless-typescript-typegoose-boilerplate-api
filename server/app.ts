@@ -1,6 +1,5 @@
 import { json, urlencoded } from 'body-parser';
 import * as express from 'express';
-import * as http from 'http';
 import * as path from 'path';
 
 import { AuthorRouter } from './routes/author/author';
@@ -41,6 +40,8 @@ app.use('/api', new AuthorRouter().getRouter());
 app.use('/api/swagger', new APIDocsRouter().getRouter());
 app.use('/docs', express.static(path.join(__dirname, './assets/swagger')));
 
-const server = app.listen(process.env.PORT || 3000);
+const server = app.listen(process.env.PORT || 3000, () =>
+  console.log('api started!'),
+);
 
 export { server };
