@@ -9,35 +9,50 @@ const expect = chai.expect;
 describe('Models Author', () => {
   let authorObject: Author;
 
-  it('should insert new author', async () => {
-    const author = new AuthorModel();
-    author.name = 'John';
-    author.age = 30;
-    author.description = 'He is writer';
-
-    const res = await author.save();
-    authorObject = res;
-
-    expect(res).to.be.an('object');
-    expect(res.name).to.be.equal('John');
+  beforeEach(async () => {
+    await AuthorModel.deleteMany({});
   });
 
-  it('should update user', async () => {
-    const results: { nModified: number } = await AuthorModel.updateAuthor(
-      authorObject._id,
-      'He is not writer',
-    );
-
-    expect(+results.nModified).to.be.equal(1);
+  afterEach(async () => {
+    await AuthorModel.deleteMany({});
   });
 
-  it('should update by age', async () => {
-    const { nModified } = await AuthorModel.updateByAge(21, 'Good one :)');
-    const author: Author = (await AuthorModel.findById(authorObject._id)
-      .lean()
-      .exec()) as Author;
+  describe('GET', () => {
+    it('should get all the authors', async () => {
+      const author1 = new AuthorModel().save();
+      const author2 = new AuthorModel().save();
+      const author3 = new AuthorModel().save();
 
-    expect(author.description).to.be.equal('Good one :)');
-    expect(nModified).to.be.equal(1);
+      const authors = await AuthorModel.getAll();
+
+      expect(authors.length).to.be.equal(3);
+    });
+  });
+
+  describe('GET one', () => {
+    beforeEach(async () => {
+      authorObject = await new AuthorModel().save();
+    });
+
+    it('should get an author by id', async () => {
+      const author = await AuthorModel.getOne(authorObject._id);
+
+      expect(author.id).to.be.equal(authorObject._id.toHexString());
+    });
+  });
+
+  describe('POST', () => {
+    it('should create a new Author', async () => {
+      const author = new AuthorModel();
+      author.name = 'John';
+      author.age = 30;
+      author.description = 'He is writer';
+
+      const res = await author.save();
+
+      expect(res).to.be.an('object');
+      expect(res.name).to.be.equal('John');
+      expect(res.age).to.be.equal(30);
+    });
   });
 });

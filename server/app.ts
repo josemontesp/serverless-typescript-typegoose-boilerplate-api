@@ -3,7 +3,6 @@ import * as express from 'express';
 import * as path from 'path';
 
 import { AuthorRouter } from './routes/author/author';
-import { PostRouter } from './routes/post/post';
 import { APIDocsRouter } from './routes/swagger';
 
 const app = express();
@@ -35,7 +34,6 @@ app.use(
   },
 );
 
-app.use('/api', PostRouter.routes());
 app.use('/api', new AuthorRouter().getRouter());
 app.use('/api/swagger', new APIDocsRouter().getRouter());
 app.use('/docs', express.static(path.join(__dirname, './assets/swagger')));

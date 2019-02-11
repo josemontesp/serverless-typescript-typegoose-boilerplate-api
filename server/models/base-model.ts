@@ -9,9 +9,9 @@ import { mongoose } from '../config/database';
   }
   next();
 })
-export class BaseModel extends Typegoose {
+export abstract class BaseModel extends Typegoose {
   // tslint:disable-next-line:variable-name
-  @prop() public _id?: Types.ObjectId;
+  @prop() public _id: Types.ObjectId;
 
   protected timestamps = true;
 

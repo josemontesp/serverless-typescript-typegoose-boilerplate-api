@@ -1,8 +1,19 @@
+import { ObjectId } from 'bson';
 import { ModelType, prop, staticMethod } from 'typegoose';
 
 import { BaseModel } from './base-model';
 
 export class Author extends BaseModel {
+  @staticMethod
+  public static getAll(this: ModelType<Author> & typeof Author) {
+    return this.find({});
+  }
+
+  @staticMethod
+  public static getOne(this: ModelType<Author> & typeof Author, id: ObjectId) {
+    return this.findById(id).exec();
+  }
+
   @staticMethod
   public static updateByAge(
     this: ModelType<Author> & typeof Author,
@@ -38,7 +49,7 @@ export class Author extends BaseModel {
 
   @prop() public age?: number;
   @prop() public description?: string;
-  @prop({ required: true }) public name: string;
+  @prop({ required: false }) public name: string;
 }
 
 export const AuthorModel = new Author().getModelForClass(Author);
