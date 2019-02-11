@@ -1,5 +1,5 @@
-import { config } from "dotenv";
+import { config } from 'dotenv';
 
 config();
 
-process.env.NODE_ENV = "testing";
+process.env.NODE_ENV = 'testing';
