@@ -5,12 +5,23 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Current TS File",
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/dist/app.js",
-      "preLaunchTask": "tsc: build - tsconfig.json",
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+      "args": ["${relativeFile}"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
+    },
+    {
+      "name": "Current TS Tests File",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+      "args": ["-r", "ts-node/register", "${relativeFile}"],
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
     }
   ]
 }
