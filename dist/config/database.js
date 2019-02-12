@@ -16,6 +16,5 @@ if (process.env.NODE_ENV === 'testing') {
 else {
     mongoose
         .connect('mongodb://josemontesp:testpassword1@ds030500.mlab.com:30500/test-ts-node-api', { useNewUrlParser: true })
-        .then(() => console.log('connected to db!'))
-        .catch(() => console.log('connected to db!'));
+        .then(() => console.log('database connected!'));
 }

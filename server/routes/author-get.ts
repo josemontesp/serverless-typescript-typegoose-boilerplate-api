@@ -1,11 +1,17 @@
-import { mongoose } from '../config/database';
-import { AuthorModel } from '../models/models';
+import { APIGatewayProxyHandler } from 'aws-lambda';
 
-exports.handler = async (event, context, callback) => {
+import { AuthorModel } from '../models/models';
+import { setupLambda } from './routes-helpers';
+
+const handler: APIGatewayProxyHandler = async (event, context, callback) => {
+  setupLambda(event, context, callback);
+
   const result = await AuthorModel.getAll();
-  await mongoose.disconnect();
+
   return {
     body: JSON.stringify({ result }),
     statusCode: 200,
   };
 };
+
+exports.handler = handler;
