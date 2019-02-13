@@ -4,11 +4,11 @@ import {
   Context,
 } from 'aws-lambda';
 
-import { BodyParserError, HTTPError } from '../errors';
-import { Indexable } from '../types';
-import { BaseController } from './base-controller';
+import { BaseController } from './controllers/base-controller';
+import { BodyParserError, HTTPError } from './errors';
+import { HTTPMethod, Indexable } from './types';
 
-class AWSLambdaHelper {
+class AWSLambdaService {
   /**
    * Receives a controller and returns a handler function usable as an AWS
    * lambda function.
@@ -18,15 +18,16 @@ class AWSLambdaHelper {
       try {
         this.setupLambda(event, context, callback);
 
-        const body = this.parseBody(event.body);
-        const queryStringParameters = event.queryStringParameters;
-        const pathParameters = event.pathParameters;
+        const apiRequest = {
+          body: this.parseBody(event.body),
+          pathParameters: event.queryStringParameters,
+          queryStringParameters: event.pathParameters,
+        };
 
-        const result = await controller.handle({
-          body,
-          pathParameters,
-          queryStringParameters,
-        });
+        const result = await controller.executeHTTPMethod(
+          event.httpMethod as HTTPMethod,
+          apiRequest,
+        );
 
         return {
           body: JSON.stringify(result),
@@ -67,4 +68,5 @@ class AWSLambdaHelper {
   }
 }
 
-export const awsLambdaHelper = new AWSLambdaHelper();
+// This is a singleton
+export const awsLambdaHelper = new AWSLambdaService();

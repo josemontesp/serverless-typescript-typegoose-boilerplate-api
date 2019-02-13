@@ -41,13 +41,13 @@ package:
 
 functions:
   autor-get:
-    handler: routes/author-get.handler
+    handler: controllers/author-controller.handler
     events:
       - http:
           path: author/
           method: get
   autor-post:
-    handler: routes/author-post.handler
+    handler: controllers/author-controller.handler
     events:
       - http:
           path: author/
