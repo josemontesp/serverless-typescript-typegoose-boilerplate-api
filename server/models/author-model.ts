@@ -6,7 +6,7 @@ import { BaseModel } from './base-model';
 export class Author extends BaseModel {
   @staticMethod
   public static getAll(this: ModelType<Author> & typeof Author) {
-    return this.find({});
+    return this.find({}).exec();
   }
 
   @staticMethod

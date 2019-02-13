@@ -1,9 +1,6 @@
-process.env.NODE_ENV = 'testing';
+// process.env.NODE_ENV = 'testing';
 
-// const expect = chai.expect;
-// chai.use(chaiHttp);
-
-// describe('Api Author', () => {
+// describe('Author controller', () => {
 //   it.skip('should be able to create user', (done): void => {
 //     chai
 //       .request(server)

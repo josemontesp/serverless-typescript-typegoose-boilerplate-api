@@ -5,7 +5,9 @@
   "rules": {
     "quotemark": [true, "single"],
     "object-literal-sort-keys": true,
-    "ordered-imports": true
+    "ordered-imports": true,
+    "interface-name": [true, "never-prefix"],
+    "jsdoc-format": true
   },
   "rulesDirectory": []
 }

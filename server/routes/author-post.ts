@@ -1,8 +1,11 @@
 import { AuthorModel } from '../models/models';
-import { getAWSLambdaHandler } from './routes-helpers';
+import { awsLambdaHelper } from './aws-lambda-helper';
+import { ApiRequest, BaseController } from './base-controller';
 
-export const controller = (bodyParams: object) => {
-  return new AuthorModel(bodyParams).save();
-};
+export class AuthorPostController implements BaseController {
+  public handle(request: ApiRequest) {
+    return new AuthorModel(request.body).save();
+  }
+}
 
-exports.handler = getAWSLambdaHandler(controller);
+exports.handler = awsLambdaHelper.getHandler(new AuthorPostController());
