@@ -40,25 +40,25 @@ package:
     - tests/**/*
 
 functions:
-  autor-get:
+  author-get:
     handler: controllers/author-controller.handler
     events:
       - http:
           path: author/
           method: get
-  autor-post:
+  author-post:
     handler: controllers/author-controller.handler
     events:
       - http:
           path: author/
           method: post
-  autor-put:
+  author-put:
     handler: controllers/author-controller.handler
     events:
       - http:
           path: author/
           method: put
-  autor-delete:
+  author-delete:
     handler: controllers/author-controller.handler
     events:
       - http:
