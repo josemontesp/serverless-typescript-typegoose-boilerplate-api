@@ -1,9 +1,8 @@
-# Mongoose & Typescript & Express
+# Serverless Typescript Typegoose boilerplate API
 
 Repository intended for producing API
 
-Implementation of async - await methods in mongoose and express.
-
+- Serverless with AWS lambda
 - Serverless with AWS lambda
 - Code coverage with Istanbul NYC
 - No need for MongoDB in develop mode.
