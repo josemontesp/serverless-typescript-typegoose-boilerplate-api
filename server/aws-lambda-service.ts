@@ -3,9 +3,10 @@ import {
   APIGatewayProxyResult,
   Context,
 } from 'aws-lambda';
+import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 
 import { BaseController } from './controllers/base-controller';
-import { BodyParserError, HTTPError } from './errors';
+import { BodyParserError, GenericError } from './errors';
 import { HTTPMethod, Indexable } from './types';
 
 class AWSLambdaService {
@@ -57,8 +58,8 @@ class AWSLambdaService {
 
   /** Constructs an error response based on the provided error object. */
   private getErrorResponse(
-    error: HTTPError,
-    status = 500,
+    error: GenericError,
+    status = INTERNAL_SERVER_ERROR,
   ): APIGatewayProxyResult {
     const statusCode = error.statusCode || status;
     return {

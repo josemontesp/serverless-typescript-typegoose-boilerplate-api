@@ -7,7 +7,7 @@ export interface ApiRequest {
   pathParameters: Indexable<string>;
 }
 
-export class BaseController {
+export abstract class BaseController {
   public get(request: ApiRequest): Promise<unknown> {
     throw new MethodNotAllowedError();
   }
