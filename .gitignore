@@ -4,3 +4,4 @@ jspm_packages
 dist
 coverage
 server/assets
+.DS_Store

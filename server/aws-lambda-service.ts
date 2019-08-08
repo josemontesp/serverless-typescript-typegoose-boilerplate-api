@@ -1,8 +1,4 @@
-import {
-  APIGatewayProxyHandler,
-  APIGatewayProxyResult,
-  Context,
-} from 'aws-lambda';
+import { APIGatewayProxyHandler, APIGatewayProxyResult, Context } from 'aws-lambda';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 
 import { BaseController } from './controllers/base-controller';
@@ -21,8 +17,8 @@ class AWSLambdaService {
 
         const apiRequest = {
           body: this.parseBody(event.body),
-          pathParameters: event.queryStringParameters,
-          queryStringParameters: event.pathParameters,
+          pathParameters: event.pathParameters,
+          queryStringParameters: event.queryStringParameters,
         };
 
         const result = await controller.executeHTTPMethod(
